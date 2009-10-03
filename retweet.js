@@ -28,6 +28,10 @@ window.RetweetJS = {
 	// "RT @jeresig " would result in: "RT @jeresig Link Title http://bit.ly/asdf"
 	prefix: "",
 
+	// Track history. (check http://bit.ly/qVtuG for explanation)
+	// 1 - to add the shorturls created to your account history. default - 0
+	track_history: "1",
+
 	// Style information
 	styling: "a.retweet { font: 12px Helvetica,Arial; color: #000; text-decoration: none; border: 0px; }" +
 		"a.retweet span { color: #FFF; background: #94CC3D; margin-left: 2px; border: 1px solid #43A52A; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; padding: 3px; }" +
@@ -159,7 +163,9 @@ function loaded(){
 			urlElem[ href ].push( elem );
 		} else {
 			urlElem[ href ] = [ elem ];
-			BitlyClient.shorten(href, 'BitlyCB.shortenResponse');
+			//BitlyClient.shorten(href, 'BitlyCB.shortenResponse');
+			// Enable history tracking (check http://bit.ly/qVtuG for explanation)
+			BitlyClient.call('shorten', {'longUrl':href, 'history':track_history}, 'BitlyCB.shortenResponse');
 		}
 	}
 
